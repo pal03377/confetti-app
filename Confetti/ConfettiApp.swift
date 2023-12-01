@@ -12,15 +12,21 @@ import KeyboardShortcuts
 struct ConfettiApp: App {
     @State private var window: NSWindow?
     @StateObject var appState = AppState.shared
+    @State private var confettiRunning = true
     
     var body: some Scene {
         WindowGroup {
-            ContentView(counter: $appState.counter)
-                .background(WindowAccessor(window: $window))
-                .onChange(of: window) {
-                    guard let window else { return; }
-                    setupWindow(window)
+            VStack {
+                ContentView(confettiRunning: confettiRunning)
+                    .background(WindowAccessor(window: $window))
+                    .onChange(of: window) {
+                        guard let window else { return; }
+                        setupWindow(window)
+                    }
+                Button("Confetti") {
+                    confettiRunning.toggle()
                 }
+            }
         }
         Settings {
             SettingsScreen()
@@ -28,6 +34,7 @@ struct ConfettiApp: App {
     }
     
     private func setupWindow(_ window: NSWindow) {
+        return;
         window.isRestorable = false
         window.moveToScreenWithMouseCursor()
         window.styleMask = .borderless
@@ -38,20 +45,19 @@ struct ConfettiApp: App {
         window.level = .floating
         window.setFrame(window.screen!.visibleFrame, display: true)
     }
-    
-    private func increaseCounter() {
-        appState.counter += 1
-    }
 }
 
 @MainActor
 final class AppState: ObservableObject {
     static let shared = AppState()
-    @Published var counter = 0 // For triggering a confetti animation
+    @Published var confettiRunning = false // For triggering a confetti animation
     
     init() {
         KeyboardShortcuts.onKeyUp(for: .showConfetti) { [self] in
-            counter += 1
+            self.confettiRunning = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.confettiRunning = false
+            }
         }
     }
 }

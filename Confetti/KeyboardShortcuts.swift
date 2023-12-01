@@ -10,5 +10,5 @@ import Foundation
 import KeyboardShortcuts
 
 extension KeyboardShortcuts.Name {
-    static let showConfetti = Self("showConfett")
+    static let showConfetti = Self("showConfetti", default: .init(.period, modifiers: [.command]))
 }
