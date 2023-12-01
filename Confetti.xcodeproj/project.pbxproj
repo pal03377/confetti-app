@@ -11,6 +11,8 @@
 		DA670A092B1A44BA00D19DC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A082B1A44BA00D19DC3 /* ContentView.swift */; };
 		DA670A0B2B1A44BC00D19DC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */; };
 		DA670A0E2B1A44BC00D19DC3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA670A0D2B1A44BC00D19DC3 /* Preview Assets.xcassets */; };
+		DA670A192B1A4BFA00D19DC3 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = DA670A182B1A4BFA00D19DC3 /* ConfettiSwiftUI */; };
+		DA670A1D2B1A567900D19DC3 /* SideConfettiCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A1C2B1A567900D19DC3 /* SideConfettiCannon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,7 @@
 		DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA670A0D2B1A44BC00D19DC3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA670A0F2B1A44BC00D19DC3 /* Confetti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Confetti.entitlements; sourceTree = "<group>"; };
+		DA670A1C2B1A567900D19DC3 /* SideConfettiCannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideConfettiCannon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA670A192B1A4BFA00D19DC3 /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +58,7 @@
 			children = (
 				DA670A062B1A44BA00D19DC3 /* ConfettiApp.swift */,
 				DA670A082B1A44BA00D19DC3 /* ContentView.swift */,
+				DA670A1C2B1A567900D19DC3 /* SideConfettiCannon.swift */,
 				DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */,
 				DA670A0F2B1A44BC00D19DC3 /* Confetti.entitlements */,
 				DA670A0C2B1A44BC00D19DC3 /* Preview Content */,
@@ -85,6 +90,9 @@
 			dependencies = (
 			);
 			name = Confetti;
+			packageProductDependencies = (
+				DA670A182B1A4BFA00D19DC3 /* ConfettiSwiftUI */,
+			);
 			productName = Confetti;
 			productReference = DA670A032B1A44BA00D19DC3 /* Confetti.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +121,9 @@
 				Base,
 			);
 			mainGroup = DA6709FA2B1A44BA00D19DC3;
+			packageReferences = (
+				DA670A172B1A4BFA00D19DC3 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+			);
 			productRefGroup = DA670A042B1A44BA00D19DC3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA670A092B1A44BA00D19DC3 /* ContentView.swift in Sources */,
+				DA670A1D2B1A567900D19DC3 /* SideConfettiCannon.swift in Sources */,
 				DA670A072B1A44BA00D19DC3 /* ConfettiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +353,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA670A172B1A4BFA00D19DC3 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA670A182B1A4BFA00D19DC3 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA670A172B1A4BFA00D19DC3 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA6709FB2B1A44BA00D19DC3 /* Project object */;
 }
