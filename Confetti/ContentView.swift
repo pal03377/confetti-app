@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var counter: Int = 0
+    @Binding
+    var counter: Int
     let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -28,13 +29,16 @@ struct ContentView: View {
                 }
             }
             .onReceive(timer) { _ in
-                self.counter += 1
+                // self.counter += 1 // For debugging
             }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    @State
+    var counter = 0
+    
+    return ContentView(counter: $counter)
         .frame(width: 600, height: 400)
 }

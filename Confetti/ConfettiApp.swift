@@ -6,33 +6,24 @@
 //
 
 import SwiftUI
-
-struct WindowAccessor: NSViewRepresentable {
-    @Binding var window: NSWindow?
-
-    func makeNSView(context: Context) -> NSView {
-        let view = NSView()
-        DispatchQueue.main.async {
-            self.window = view.window   // << right after inserted in window
-        }
-        return view
-    }
-
-    func updateNSView(_ nsView: NSView, context: Context) {}
-}
+import KeyboardShortcuts
 
 @main
 struct ConfettiApp: App {
     @State private var window: NSWindow?
+    @StateObject var appState = AppState.shared
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(counter: $appState.counter)
                 .background(WindowAccessor(window: $window))
                 .onChange(of: window) {
                     guard let window else { return; }
                     setupWindow(window)
                 }
+        }
+        Settings {
+            SettingsScreen()
         }
     }
     
@@ -47,6 +38,37 @@ struct ConfettiApp: App {
         window.level = .floating
         window.setFrame(window.screen!.visibleFrame, display: true)
     }
+    
+    private func increaseCounter() {
+        appState.counter += 1
+    }
+}
+
+@MainActor
+final class AppState: ObservableObject {
+    static let shared = AppState()
+    @Published var counter = 0 // For triggering a confetti animation
+    
+    init() {
+        KeyboardShortcuts.onKeyUp(for: .showConfetti) { [self] in
+            counter += 1
+        }
+    }
+}
+
+
+struct WindowAccessor: NSViewRepresentable {
+    @Binding var window: NSWindow?
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            self.window = view.window   // << right after inserted in window
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {}
 }
 
 
