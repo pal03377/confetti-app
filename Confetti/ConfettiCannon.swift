@@ -53,7 +53,10 @@ class ConfettiCannon: NSView {
         emitter.emitterSize = CGSize(width: 1, height: 1)
 
         emitter.birthRate = 1
-
+        
+        // see https://nshipster.com/caemitterlayer/ for confetti layer explaination
+        // see https://bryce.co/caemitterbehavior/ for emitter behavior explaination - probably should not use
+        
         let cell = CAEmitterCell()
         cell.name = "cell"
         cell.birthRate = 5

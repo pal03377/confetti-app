@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA368D2B2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA368D2A2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift */; };
 		DA670A072B1A44BA00D19DC3 /* ConfettiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A062B1A44BA00D19DC3 /* ConfettiApp.swift */; };
 		DA670A092B1A44BA00D19DC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A082B1A44BA00D19DC3 /* ContentView.swift */; };
 		DA670A0B2B1A44BC00D19DC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */; };
@@ -17,9 +18,11 @@
 		DA670A252B1A645800D19DC3 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = DA670A242B1A645800D19DC3 /* KeyboardShortcuts */; };
 		DA670A272B1A646500D19DC3 /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A262B1A646500D19DC3 /* KeyboardShortcuts.swift */; };
 		DA670A292B1A64B000D19DC3 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */; };
+		DA69DE5E2B1ADC0D00978D62 /* Confetti.scn in Resources */ = {isa = PBXBuildFile; fileRef = DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA368D2A2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiCannonSceneKit.swift; sourceTree = "<group>"; };
 		DA670A032B1A44BA00D19DC3 /* Confetti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Confetti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA670A062B1A44BA00D19DC3 /* ConfettiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiApp.swift; sourceTree = "<group>"; };
 		DA670A082B1A44BA00D19DC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 		DA670A1C2B1A567900D19DC3 /* ConfettiCannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiCannon.swift; sourceTree = "<group>"; };
 		DA670A262B1A646500D19DC3 /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
 		DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Confetti.scn; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */,
 				DA670A082B1A44BA00D19DC3 /* ContentView.swift */,
 				DA670A1C2B1A567900D19DC3 /* ConfettiCannon.swift */,
+				DA368D2A2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift */,
+				DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */,
 				DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */,
 				DA670A0F2B1A44BC00D19DC3 /* Confetti.entitlements */,
 				DA670A0C2B1A44BC00D19DC3 /* Preview Content */,
@@ -153,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA670A0E2B1A44BC00D19DC3 /* Preview Assets.xcassets in Resources */,
+				DA69DE5E2B1ADC0D00978D62 /* Confetti.scn in Resources */,
 				DA670A0B2B1A44BC00D19DC3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,6 +173,7 @@
 			files = (
 				DA670A092B1A44BA00D19DC3 /* ContentView.swift in Sources */,
 				DA670A272B1A646500D19DC3 /* KeyboardShortcuts.swift in Sources */,
+				DA368D2B2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift in Sources */,
 				DA670A1D2B1A567900D19DC3 /* ConfettiCannon.swift in Sources */,
 				DA670A292B1A64B000D19DC3 /* SettingsScreen.swift in Sources */,
 				DA670A072B1A44BA00D19DC3 /* ConfettiApp.swift in Sources */,
