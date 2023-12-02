@@ -67,18 +67,18 @@ class ConfettiCannon: NSView {
         cell.contents = NSImage(named: NSImage.Name("Confetti"))?.cgImage(forProposedRect: nil, context: nil, hints: nil)
         emitter.emitterCells = [cell]
 
+        emitter.beginTime = CACurrentMediaTime(); // Important fix for strange emitter behavior on stop, see https://stackoverflow.com/a/18933226/4306257
         layer!.addSublayer(emitter)
     }
     
     func startConfetti() {
         print("Start confetti")
-        emitter.birthRate = 1
-        emitter.beginTime = CACurrentMediaTime(); // Weird hack to make birth rate change work correctly. Taken from https://stackoverflow.com/a/29994503/4306257. Only works in the real app, not the preview!
+        emitter.lifetime = 10
     }
 
     func stopConfetti() {
         print("Stop confetti")
-        emitter.birthRate = 0
+        emitter.lifetime = 0.0
     }
 }
 
@@ -107,7 +107,13 @@ struct ConfettiCannonRepresentable: NSViewRepresentable {
 }
 
 #Preview {
-    return ConfettiCannonRepresentable(confettiRunning: true, direction: .topRight)
-                .background(Color.yellow)
+    @State var confettiRunning = true
+    return VStack {
+        ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topRight)
+            .background(Color.yellow)
+        Button("toggle") {
+            confettiRunning.toggle()
+        }
+    }
     .frame(width: 600, height: 400)
 }
