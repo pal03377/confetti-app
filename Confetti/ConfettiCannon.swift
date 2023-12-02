@@ -67,7 +67,7 @@ class ConfettiCannon: NSView {
         cell.contents = NSImage(named: NSImage.Name("Confetti"))?.cgImage(forProposedRect: nil, context: nil, hints: nil)
         emitter.emitterCells = [cell]
 
-        emitter.beginTime = CACurrentMediaTime(); // Important fix for strange emitter behavior on stop, see https://stackoverflow.com/a/18933226/4306257
+        emitter.beginTime = CACurrentMediaTime(); // Important fix for strange emitter behavior on stop, see https://stackoverflow.com/a/18933226/4306257. The fix does not seem to work in the preview, but it works in the final app.
         layer!.addSublayer(emitter)
     }
     
@@ -107,13 +107,7 @@ struct ConfettiCannonRepresentable: NSViewRepresentable {
 }
 
 #Preview {
-    @State var confettiRunning = true
-    return VStack {
-        ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topRight)
+    ConfettiCannonRepresentable(confettiRunning: true, direction: .topRight)
             .background(Color.yellow)
-        Button("toggle") {
-            confettiRunning.toggle()
-        }
-    }
     .frame(width: 600, height: 400)
 }
