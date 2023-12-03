@@ -45,14 +45,6 @@ struct ConfettiApp: App {
                         }
                     }
                     return $0
-//                    mouseLocationThrottleTimer?.cancel()  // Cancel the existing timer if it exists
-//                    mouseLocationThrottleTimer = DispatchSource.makeTimerSource()
-//                    mouseLocationThrottleTimer?.schedule(deadline: .now() + 0.1, repeating: .never) // Throttle event to every 100ms
-//                    mouseLocationThrottleTimer?.setEventHandler {
-//                        appState.mouseLocation = NSEvent.mouseLocation
-//                    }
-//                    mouseLocationThrottleTimer?.resume()
-//                    return $0
                 }
             })
         }

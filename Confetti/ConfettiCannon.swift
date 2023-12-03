@@ -103,12 +103,10 @@ class ConfettiCannon: NSView {
     }
     
     func startConfetti() {
-        print("Start confetti")
         emitter.lifetime = 10
     }
 
     func stopConfetti() {
-        print("Stop confetti")
         emitter.lifetime = 0
     }
 }

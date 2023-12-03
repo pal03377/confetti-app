@@ -21,6 +21,7 @@ struct MouseConfettiCannon: View {
     @State private var lastMouseUpdateTime = Date()
     @State private var confettiCannonConfigs: [ConfettiCannonConfig] = []
     @State private var shootingIds: [UUID] = []
+    @State var oldMouseLocation: NSPoint = NSPoint()
     var mouseLocation: NSPoint
     
     var body: some View {
@@ -30,7 +31,7 @@ struct MouseConfettiCannon: View {
                     confettiRunning: shootingIds.contains(cannonConfig.id),
                     direction: cannonConfig.direction,
                     emissionVelocity: cannonConfig.velocity,
-                    birthRate: Float(cannonConfig.velocity / 20) // Emit more when faster
+                    birthRate: Float(cannonConfig.velocity / 10) // Emit more when faster
                 )
                     .background(MOUSE_CONFETTI_CANNON_DEBUGGING ? .yellow : .clear)
                     .position(cannonConfig.position)
@@ -42,13 +43,16 @@ struct MouseConfettiCannon: View {
                     .position(mouseLocation)
             }
         }
-        .onChange(of: mouseLocation) { (oldLocation, newLocation) in
-            let distance = sqrt(pow(newLocation.x - oldLocation.x, 2) + pow(newLocation.y - oldLocation.y, 2))
-            let velocity = distance / CGFloat(Date().timeIntervalSince(lastMouseUpdateTime))
-            let angle = Angle.radians(atan2(0 - (newLocation.y - oldLocation.y), newLocation.x - oldLocation.x) + .pi / 2) // We reverted the y axis in ConfettiApp.swift => need to revert again for angles; angles are 90° rotated against each other
+        .onChange(of: mouseLocation) { // Cannot use params because function is throttled
+            let passedTimeSeconds = CGFloat(Date().timeIntervalSince(lastMouseUpdateTime))
+            // Throttle function to avoid problems with high event resolution
+            if passedTimeSeconds < 0.05 { return }
+            let distance = sqrt(pow(mouseLocation.x - oldMouseLocation.x, 2) + pow(mouseLocation.y - oldMouseLocation.y, 2))
+            let velocity = distance / passedTimeSeconds
+            let angle = Angle.radians(atan2(0 - (mouseLocation.y - oldMouseLocation.y), mouseLocation.x - oldMouseLocation.x) + .pi / 2) // We reverted the y axis in ConfettiApp.swift => need to revert again for angles; angles are 90° rotated against each other
             let cannonConfig = ConfettiCannonConfig(
                 id: UUID(),
-                position: newLocation,
+                position: mouseLocation,
                 direction: ConfettiDirection(direction: angle, spread: .degrees(30)),
                 velocity: velocity / 2
             )
@@ -62,6 +66,7 @@ struct MouseConfettiCannon: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 confettiCannonConfigs.removeAll { $0.id == cannonConfig.id }
             }
+            oldMouseLocation = mouseLocation
             lastMouseUpdateTime = Date()
         }
     }
