@@ -17,9 +17,9 @@ struct ContentView: View {
                 VStack {
                     Spacer() // Pushes content to the bottom
                     HStack {
-                        ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topRight)
+                        ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topRight, emissionVelocity: geometry.size.width)
                         Spacer()
-                        ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topLeft)
+                        ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topLeft, emissionVelocity: geometry.size.width)
                     }
                 }
             }

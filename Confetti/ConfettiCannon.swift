@@ -1,5 +1,5 @@
 //
-//  SideConfettiCannon.swift
+//  ConfettiCannon.swift
 //  Confetti
 //
 //  Created by Paul Schwind on 01.12.23.
@@ -22,6 +22,8 @@ struct ConfettiDirection: Equatable {
 
 class ConfettiCannon: NSView {
     private var emitter = CAEmitterLayer()
+    private var emissionVelocity: Double = 400
+    private var direction: ConfettiDirection = .topRight
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -33,20 +35,40 @@ class ConfettiCannon: NSView {
         setupConfetti()
     }
     
-    func updateEmitterSize() {
-        emitter.position = CGPoint(x: frame.size.width / 2, y: frame.size.height)
-        emitter.emitterSize = CGSize(width: 1, height: 1)
-    }
-
-    func setDirection(_ direction: ConfettiDirection) {
+    private func updateCellProperties() {
         for cell in emitter.emitterCells ?? [] {
+            cell.birthRate = 20
+            cell.lifetime = 10
+            cell.velocity = emissionVelocity
+            cell.velocityRange = emissionVelocity / 2
+            // Acceleration in opposite x direction of direction for drag effect
+            cell.xAcceleration = 0.3 * emissionVelocity * CGFloat(cos(direction.direction.radians + .pi / 2)) // Angles are shifted 90° vs. the needed cos for the acceleration x direction
+            // Gravity effect
+            cell.yAcceleration = -emissionVelocity
+            cell.spin = 0
+            cell.spinRange = 10
+            cell.scale = 0.5
+            cell.scaleRange = 0.2
             cell.emissionLongitude = direction.direction.radians
             cell.emissionRange = direction.spread.radians
         }
     }
+    
+    func setEmissionVelocity(_ emissionVelocity: Double) {
+        if emissionVelocity != self.emissionVelocity {
+            self.emissionVelocity = emissionVelocity
+            updateCellProperties()
+        }
+    }
+
+    func setDirection(_ direction: ConfettiDirection) {
+        if direction != self.direction {
+            self.direction = direction
+            updateCellProperties()
+        }
+    }
 
     private func setupConfetti() {
-        updateEmitterSize()
         self.wantsLayer = true
         emitter.emitterShape = .line
         emitter.emitterPosition = CGPoint(x: 0, y: 0)
@@ -57,18 +79,15 @@ class ConfettiCannon: NSView {
         // see https://nshipster.com/caemitterlayer/ for confetti layer explaination
         // see https://bryce.co/caemitterbehavior/ for emitter behavior explaination - probably should not use
         
-        let cell = CAEmitterCell()
-        cell.name = "cell"
-        cell.birthRate = 5
-        cell.lifetime = 10
-        cell.velocity = 700
-        cell.velocityRange = 50
-        cell.yAcceleration = -600 // Gravity-like effect
-        cell.spinRange = 5
-        cell.scale = 1
-        cell.scaleRange = 0.4
-        cell.contents = NSImage(named: NSImage.Name("Confetti"))?.cgImage(forProposedRect: nil, context: nil, hints: nil)
-        emitter.emitterCells = [cell]
+        emitter.emitterCells = []
+        for shape in ["ellipse", "parallelogram", "spiral", "triangle"] {
+            for colorIndex in 1...5 {
+                let cell = CAEmitterCell()
+                cell.contents = NSImage(named: NSImage.Name("\(shape)_\(colorIndex)"))?.cgImage(forProposedRect: nil, context: nil, hints: nil)
+                emitter.emitterCells?.append(cell)
+            }
+        }
+        updateCellProperties()
 
         emitter.beginTime = CACurrentMediaTime(); // Important fix for strange emitter behavior on stop, see https://stackoverflow.com/a/18933226/4306257. The fix does not seem to work in the preview, but it works in the final app.
         layer!.addSublayer(emitter)
@@ -81,20 +100,21 @@ class ConfettiCannon: NSView {
 
     func stopConfetti() {
         print("Stop confetti")
-        emitter.lifetime = 0.0
+        emitter.lifetime = 0
     }
 }
 
 struct ConfettiCannonRepresentable: NSViewRepresentable {
     var confettiRunning: Bool
     var direction: ConfettiDirection
+    var emissionVelocity: Double = 400
 
     func makeNSView(context: Context) -> ConfettiCannon {
         return ConfettiCannon()
     }
     
     func updateNSView(_ nsView: ConfettiCannon, context: Context) {
-        nsView.updateEmitterSize()
+        nsView.setEmissionVelocity(emissionVelocity)
         nsView.setDirection(direction)
         if confettiRunning {
             nsView.startConfetti()
@@ -110,7 +130,13 @@ struct ConfettiCannonRepresentable: NSViewRepresentable {
 }
 
 #Preview {
-    ConfettiCannonRepresentable(confettiRunning: true, direction: .topRight)
-            .background(Color.yellow)
+    VStack {
+        Spacer()
+        HStack {
+            ConfettiCannonRepresentable(confettiRunning: true, direction: .topRight, emissionVelocity: 600)
+                .background(Color.yellow)
+            Spacer()
+        }
+    }
     .frame(width: 600, height: 400)
 }
