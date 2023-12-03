@@ -14,6 +14,9 @@ struct ConfettiApp: App {
     @StateObject var appState = AppState.shared
     
     var body: some Scene {
+        MenuBarExtra("Confetti", systemImage: "party.popper.fill") {
+            ConfettiAppMenu()
+        }
         WindowGroup {
             VStack {
                 ContentView(confettiRunning: appState.confettiRunning)
