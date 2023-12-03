@@ -24,6 +24,7 @@ class ConfettiCannon: NSView {
     private var emitter = CAEmitterLayer()
     private var emissionVelocity: Double = 400
     private var direction: ConfettiDirection = .topRight
+    private var birthRate: Float = 50
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -37,7 +38,7 @@ class ConfettiCannon: NSView {
     
     private func updateCellProperties() {
         for cell in emitter.emitterCells ?? [] {
-            cell.birthRate = 50
+            cell.birthRate = birthRate
             cell.lifetime = 10
             cell.velocity = emissionVelocity
             cell.velocityRange = emissionVelocity / 2
@@ -55,16 +56,23 @@ class ConfettiCannon: NSView {
         }
     }
     
+    func setDirection(_ direction: ConfettiDirection) {
+        if direction != self.direction {
+            self.direction = direction
+            updateCellProperties()
+        }
+    }
+    
     func setEmissionVelocity(_ emissionVelocity: Double) {
         if emissionVelocity != self.emissionVelocity {
             self.emissionVelocity = emissionVelocity
             updateCellProperties()
         }
     }
-
-    func setDirection(_ direction: ConfettiDirection) {
-        if direction != self.direction {
-            self.direction = direction
+    
+    func setBirthRate(_ birthRate: Float) {
+        if birthRate != self.birthRate {
+            self.birthRate = birthRate
             updateCellProperties()
         }
     }
@@ -109,6 +117,7 @@ struct ConfettiCannonRepresentable: NSViewRepresentable {
     var confettiRunning: Bool
     var direction: ConfettiDirection
     var emissionVelocity: Double = 400
+    var birthRate: Float = 50
 
     func makeNSView(context: Context) -> ConfettiCannon {
         return ConfettiCannon()
@@ -117,6 +126,7 @@ struct ConfettiCannonRepresentable: NSViewRepresentable {
     func updateNSView(_ nsView: ConfettiCannon, context: Context) {
         nsView.setEmissionVelocity(emissionVelocity)
         nsView.setDirection(direction)
+        nsView.setBirthRate(birthRate)
         if confettiRunning {
             nsView.startConfetti()
         } else {
