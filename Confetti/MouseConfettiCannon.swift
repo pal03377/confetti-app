@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let MOUSE_CONFETTI_CANNON_DEBUGGING = false
+
 class ConfettiCannonConfig: ObservableObject, Identifiable {
     init(id: UUID, position: NSPoint, direction: ConfettiDirection, velocity: Double, shooting: Bool) {
         self.id = id
@@ -37,13 +39,15 @@ struct MouseConfettiCannon: View {
         Group {
             ForEach(confettiCannonConfigs) { cannonConfig in
                 ConfettiCannonRepresentable(confettiRunning: cannonConfig.shooting, direction: cannonConfig.direction, emissionVelocity: cannonConfig.velocity)
-                    .background(.yellow)
+                    .background(MOUSE_CONFETTI_CANNON_DEBUGGING ? .yellow : .clear)
                     .position(cannonConfig.position)
             }
-            Rectangle() // debug rect
-                .fill(.red)
-                .frame(width: 3, height: 3)
-                .position(mouseLocation)
+            if MOUSE_CONFETTI_CANNON_DEBUGGING {
+                Rectangle() // debug rect
+                    .fill(.red)
+                    .frame(width: 3, height: 3)
+                    .position(mouseLocation)
+            }
         }
         .onChange(of: mouseLocation) { (oldLocation, newLocation) in
             let distance = sqrt(pow(newLocation.x - oldLocation.x, 2) + pow(newLocation.y - oldLocation.y, 2))
