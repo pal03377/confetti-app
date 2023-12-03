@@ -28,23 +28,19 @@ struct ConfettiApp: App {
             }
             .onAppear(perform: {
                 NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
-                    DispatchQueue.main.async {
-                        for screen in NSScreen.screens {
-                            if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
-                                DispatchQueue.main.async {
-                                    appState.mouseLocation = NSEvent.mouseLocation
-                                    // Set mouse position relative to screen
-                                    appState.mouseLocation.x -= screen.frame.origin.x
-                                    appState.mouseLocation.y -= screen.frame.origin.y
-                                    // Revert y axis to match SwiftUI coordinates
-                                    appState.mouseLocation.y = screen.frame.height - appState.mouseLocation.y
-                                    // If window not on correct screen yet
-                                    if window?.screen != screen {
+                    if let window {
+                        DispatchQueue.main.async {
+                            for screen in NSScreen.screens {
+                                if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
+                                    if window.screen != screen { // Window not on correct screen yet?
                                         // Move window to screen
-                                        window?.setFrame(screen.visibleFrame, display: true)
+                                        window.setFrame(screen.visibleFrame, display: false)
                                     }
+                                    appState.mouseLocation = window.mouseLocationOutsideOfEventStream // Get coordinates within screen
+                                    // Y coordinate is reversed (starts at bottom left) => change
+                                    appState.mouseLocation.y = window.frame.height - appState.mouseLocation.y
+                                    break
                                 }
-                                break
                             }
                         }
                     }
@@ -69,7 +65,6 @@ struct ConfettiApp: App {
     }
     
     private func setupWindow(_ window: NSWindow) {
-        return
         window.isRestorable = false
         window.styleMask = .borderless
         window.backgroundColor = NSColor.clear
