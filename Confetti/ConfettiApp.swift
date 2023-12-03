@@ -12,20 +12,16 @@ import KeyboardShortcuts
 struct ConfettiApp: App {
     @State private var window: NSWindow?
     @StateObject var appState = AppState.shared
-    @State private var confettiRunning = true
     
     var body: some Scene {
         WindowGroup {
             VStack {
-                ContentView(confettiRunning: confettiRunning)
+                ContentView(confettiRunning: appState.confettiRunning)
                     .background(WindowAccessor(window: $window))
                     .onChange(of: window) {
                         guard let window else { return; }
                         setupWindow(window)
                     }
-                Button("Confetti") {
-                    confettiRunning.toggle()
-                }
             }
         }
         Settings {
@@ -34,7 +30,6 @@ struct ConfettiApp: App {
     }
     
     private func setupWindow(_ window: NSWindow) {
-        return;
         window.isRestorable = false
         window.moveToScreenWithMouseCursor()
         window.styleMask = .borderless
@@ -55,7 +50,7 @@ final class AppState: ObservableObject {
     init() {
         KeyboardShortcuts.onKeyUp(for: .showConfetti) { [self] in
             self.confettiRunning = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.confettiRunning = false
             }
         }

@@ -37,7 +37,7 @@ class ConfettiCannon: NSView {
     
     private func updateCellProperties() {
         for cell in emitter.emitterCells ?? [] {
-            cell.birthRate = 20
+            cell.birthRate = 50
             cell.lifetime = 10
             cell.velocity = emissionVelocity
             cell.velocityRange = emissionVelocity / 2
@@ -70,10 +70,10 @@ class ConfettiCannon: NSView {
 
     private func setupConfetti() {
         self.wantsLayer = true
+        
         emitter.emitterShape = .line
         emitter.emitterPosition = CGPoint(x: 0, y: 0)
         emitter.emitterSize = CGSize(width: 1, height: 1)
-
         emitter.birthRate = 1
         
         // see https://nshipster.com/caemitterlayer/ for confetti layer explaination
@@ -130,12 +130,17 @@ struct ConfettiCannonRepresentable: NSViewRepresentable {
 }
 
 #Preview {
-    VStack {
+    @State var confettiRunning = true
+    
+    return VStack {
         Spacer()
         HStack {
-            ConfettiCannonRepresentable(confettiRunning: true, direction: .topRight, emissionVelocity: 600)
+            ConfettiCannonRepresentable(confettiRunning: confettiRunning, direction: .topRight, emissionVelocity: 600)
                 .background(Color.yellow)
             Spacer()
+            Button("toggle") {
+                confettiRunning.toggle()
+            }
         }
     }
     .frame(width: 600, height: 400)
