@@ -49,6 +49,7 @@ class ConfettiCannon: NSView {
             cell.spinRange = 10
             cell.scale = 0.5
             cell.scaleRange = 0.2
+            cell.alphaSpeed = 0 - 1 / cell.lifetime // Ensure invisibility after lifetime
             cell.emissionLongitude = direction.direction.radians
             cell.emissionRange = direction.spread.radians
         }
