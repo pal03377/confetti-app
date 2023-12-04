@@ -21,6 +21,10 @@ struct ConfettiApp: App {
                 SideConfettiCannons(confettiRunning: appState.confettiRunning)
                 MouseConfettiCannon(mouseLocation: appState.mouseLocation)
             }
+            .onAppear {
+                NSApp.activate(ignoringOtherApps: true)
+                NSApp.setActivationPolicy(.accessory)
+            }
             .background(WindowAccessor(window: $window))
             .onChange(of: window) {
                 guard let window else { return; }
