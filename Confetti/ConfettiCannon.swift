@@ -12,11 +12,11 @@ struct ConfettiDirection: Equatable {
     var spread: Angle
     
     static var topRight: ConfettiDirection {
-        return ConfettiDirection(direction: .degrees(135), spread: .degrees(45))
+        return ConfettiDirection(direction: .degrees(145), spread: .degrees(45))
     }
     
     static var topLeft: ConfettiDirection {
-        return ConfettiDirection(direction: .degrees(225), spread: .degrees(45))
+        return ConfettiDirection(direction: .degrees(215), spread: .degrees(45))
     }
 }
 
