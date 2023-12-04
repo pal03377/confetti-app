@@ -3,13 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ConfettiCannon.body.getter:ConfettiCannon.swift">
+         contextName = "SideConfettiCannonRepresentable.updateNSView(_:context:):SideConfettiCannon.swift">
          <PersistentStrings>
             <PersistentString
-               value = "max(screenSize.width, screenSize.height)">
-            </PersistentString>
-            <PersistentString
-               value = "screenSize">
+               value = "confettiRunning">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -18,14 +15,6 @@
          <PersistentStrings>
             <PersistentString
                value = "geometry.size">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SideConfettiCannonRepresentable.updateNSView(_:context:):SideConfettiCannon.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "confettiRunning">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -42,6 +31,25 @@
          <PersistentStrings>
             <PersistentString
                value = "self.bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in MouseConfettiCannon.body.getter:MouseConfettiCannon.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "NSEvent.modifierFlags">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ConfettiCannon.body.getter:ConfettiCannon.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "max(screenSize.width, screenSize.height)">
+            </PersistentString>
+            <PersistentString
+               value = "screenSize">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

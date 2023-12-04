@@ -44,8 +44,8 @@ struct MouseConfettiCannon: View {
             }
         }
         .onChange(of: mouseLocation) { // Cannot use params because function is throttled
-            let passedTimeSeconds = CGFloat(Date().timeIntervalSince(lastMouseUpdateTime))
             // Throttle function to avoid problems with high event resolution
+            let passedTimeSeconds = CGFloat(Date().timeIntervalSince(lastMouseUpdateTime))
             if passedTimeSeconds < 0.05 { return }
             let distance = sqrt(pow(mouseLocation.x - oldMouseLocation.x, 2) + pow(mouseLocation.y - oldMouseLocation.y, 2))
             let velocity = distance / passedTimeSeconds

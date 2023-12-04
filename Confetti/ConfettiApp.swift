@@ -27,20 +27,24 @@ struct ConfettiApp: App {
                 setupWindow(window)
             }
             .onAppear(perform: {
+                var lastEventTime = Date().timeIntervalSince1970 // Timestamp of the last processed event
+                let debounceInterval = 0.1 // 50 milliseconds
+                
                 NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
-                    if let window {
-                        DispatchQueue.main.async {
-                            for screen in NSScreen.screens {
-                                if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
-                                    if window.screen != screen { // Window not on correct screen yet?
-                                        // Move window to screen
-                                        window.setFrame(screen.visibleFrame, display: false)
-                                    }
-                                    appState.mouseLocation = window.mouseLocationOutsideOfEventStream // Get coordinates within screen
-                                    // Y coordinate is reversed (starts at bottom left) => change
-                                    appState.mouseLocation.y = window.frame.height - appState.mouseLocation.y
-                                    break
+                    let currentTime = Date().timeIntervalSince1970
+                    if currentTime - lastEventTime < debounceInterval { return $0}
+                    DispatchQueue.main.async {
+                        for screen in NSScreen.screens {
+                            if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
+                                guard let window else { return }
+                                if window.screen != screen { // Window not on correct screen yet?
+                                    // Move window to screen
+                                    window.setFrame(screen.visibleFrame, display: false)
                                 }
+                                appState.mouseLocation = window.mouseLocationOutsideOfEventStream // Get coordinates within screen
+                                // Y coordinate is reversed (starts at bottom left) => change
+                                appState.mouseLocation.y = window.frame.height - appState.mouseLocation.y
+                                break
                             }
                         }
                     }
