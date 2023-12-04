@@ -21,6 +21,7 @@
 		DA670A292B1A64B000D19DC3 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */; };
 		DA69DE5E2B1ADC0D00978D62 /* Confetti.scn in Resources */ = {isa = PBXBuildFile; fileRef = DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */; };
 		DAE522072B1D22F200F4DDF0 /* MouseConfettiCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE522062B1D22F200F4DDF0 /* MouseConfettiCannon.swift */; };
+		DAE522112B1D66FB00F4DDF0 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = DAE522102B1D66FB00F4DDF0 /* LaunchAtLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			files = (
 				DA670A222B1A633700D19DC3 /* HotKey in Frameworks */,
 				DA670A192B1A4BFA00D19DC3 /* ConfettiSwiftUI in Frameworks */,
+				DAE522112B1D66FB00F4DDF0 /* LaunchAtLogin in Frameworks */,
 				DA670A252B1A645800D19DC3 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +118,7 @@
 				DA670A182B1A4BFA00D19DC3 /* ConfettiSwiftUI */,
 				DA670A212B1A633700D19DC3 /* HotKey */,
 				DA670A242B1A645800D19DC3 /* KeyboardShortcuts */,
+				DAE522102B1D66FB00F4DDF0 /* LaunchAtLogin */,
 			);
 			productName = Confetti;
 			productReference = DA670A032B1A44BA00D19DC3 /* Confetti.app */;
@@ -149,6 +152,7 @@
 				DA670A172B1A4BFA00D19DC3 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				DA670A202B1A633700D19DC3 /* XCRemoteSwiftPackageReference "HotKey" */,
 				DA670A232B1A645800D19DC3 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				DAE5220F2B1D66FB00F4DDF0 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
 			productRefGroup = DA670A042B1A44BA00D19DC3 /* Products */;
 			projectDirPath = "";
@@ -417,6 +421,14 @@
 				minimumVersion = 1.16.1;
 			};
 		};
+		DAE5220F2B1D66FB00F4DDF0 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -434,6 +446,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA670A232B1A645800D19DC3 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		DAE522102B1D66FB00F4DDF0 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAE5220F2B1D66FB00F4DDF0 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
