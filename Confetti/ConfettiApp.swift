@@ -34,13 +34,7 @@ struct ConfettiApp: App {
             .onChange(of: appState.mouseConfettiCannonEnabled) {
                 if appState.mouseConfettiCannonEnabled {
                     // Register mouse move event for mouse confetti cannon
-                    var lastEventTime = Date().timeIntervalSince1970 // Timestamp of the last processed event
-                    let debounceInterval = 0.05 // 50 milliseconds
-                    
                     NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
-                        if !appState.mouseConfettiCannonEnabled { return nil } // Unregister mouse move event because it's not needed any more
-                        let currentTime = Date().timeIntervalSince1970
-                        if currentTime - lastEventTime < debounceInterval { return $0 } // Debounce to keep energy impact low
                         DispatchQueue.main.async {
                             moveWindowToCursorScreen()
                             for screen in NSScreen.screens {
@@ -69,8 +63,8 @@ struct ConfettiApp: App {
     private func setupWindow(_ window: NSWindow) {
         window.isRestorable = false
         window.styleMask = .borderless
-        //window.backgroundColor = NSColor.clear
-        //window.isOpaque = false
+        window.backgroundColor = NSColor.clear
+        window.isOpaque = false
         window.hasShadow = false
         window.ignoresMouseEvents = true
         window.level = .floating
