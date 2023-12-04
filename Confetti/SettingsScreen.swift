@@ -12,6 +12,7 @@ struct SettingsScreen: View {
     var body: some View {
         Form {
             KeyboardShortcuts.Recorder("Show Confetti:", name: .showConfetti)
+            KeyboardShortcuts.Recorder("Toggle mouse confetti:", name: .toggleMouseConfettiCannonEnabled)
         }
         .padding(.all)
     }
