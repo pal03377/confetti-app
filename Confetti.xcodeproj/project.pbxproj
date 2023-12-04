@@ -22,6 +22,7 @@
 		DA69DE5E2B1ADC0D00978D62 /* Confetti.scn in Resources */ = {isa = PBXBuildFile; fileRef = DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */; };
 		DAE522072B1D22F200F4DDF0 /* MouseConfettiCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE522062B1D22F200F4DDF0 /* MouseConfettiCannon.swift */; };
 		DAE522112B1D66FB00F4DDF0 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = DAE522102B1D66FB00F4DDF0 /* LaunchAtLogin */; };
+		DAE522132B1D698500F4DDF0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DAE522122B1D698500F4DDF0 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Confetti.scn; sourceTree = "<group>"; };
 		DAE522062B1D22F200F4DDF0 /* MouseConfettiCannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseConfettiCannon.swift; sourceTree = "<group>"; };
+		DAE522122B1D698500F4DDF0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			children = (
 				DA670A062B1A44BA00D19DC3 /* ConfettiApp.swift */,
 				DA4E7ACF2B1D185100E934EC /* ConfettiAppMenu.swift */,
+				DAE522122B1D698500F4DDF0 /* Localizable.xcstrings */,
 				DA670A262B1A646500D19DC3 /* KeyboardShortcuts.swift */,
 				DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */,
 				DA670A082B1A44BA00D19DC3 /* SideConfettiCannons.swift */,
@@ -146,6 +149,8 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				fr,
 			);
 			mainGroup = DA6709FA2B1A44BA00D19DC3;
 			packageReferences = (
@@ -170,6 +175,7 @@
 			files = (
 				DA670A0E2B1A44BC00D19DC3 /* Preview Assets.xcassets in Resources */,
 				DA69DE5E2B1ADC0D00978D62 /* Confetti.scn in Resources */,
+				DAE522132B1D698500F4DDF0 /* Localizable.xcstrings in Resources */,
 				DA670A0B2B1A44BC00D19DC3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

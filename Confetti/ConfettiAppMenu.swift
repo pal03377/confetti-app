@@ -14,6 +14,6 @@ struct ConfettiAppMenu: View {
 
     var body: some View {
         SettingsLink()
-        Button(action: quitApp, label: { Text("Quit") })
+        Button(action: quitApp, label: { Text(String(localized: "Quit")) })
     }
 }
