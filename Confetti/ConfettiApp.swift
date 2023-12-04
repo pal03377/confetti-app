@@ -26,6 +26,11 @@ struct ConfettiApp: App {
                 guard let window else { return; }
                 setupWindow(window)
             }
+            .onChange(of: appState.confettiRunning) {
+                if appState.confettiRunning {
+                    moveWindowToCursorScreen() // When firing, move to cursor screen
+                }
+            }
             .onChange(of: appState.mouseConfettiCannonEnabled) {
                 if appState.mouseConfettiCannonEnabled {
                     // Register mouse move event for mouse confetti cannon
@@ -37,13 +42,10 @@ struct ConfettiApp: App {
                         let currentTime = Date().timeIntervalSince1970
                         if currentTime - lastEventTime < debounceInterval { return $0 } // Debounce to keep energy impact low
                         DispatchQueue.main.async {
+                            moveWindowToCursorScreen()
                             for screen in NSScreen.screens {
                                 if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
                                     guard let window else { return }
-                                    if window.screen != screen { // Window not on correct screen yet?
-                                        // Move window to screen
-                                        window.setFrame(screen.visibleFrame, display: false)
-                                    }
                                     appState.mouseLocation = window.mouseLocationOutsideOfEventStream // Get coordinates within screen
                                     // Y coordinate is reversed (starts at bottom left) => change
                                     appState.mouseLocation.y = window.frame.height - appState.mouseLocation.y
@@ -67,12 +69,25 @@ struct ConfettiApp: App {
     private func setupWindow(_ window: NSWindow) {
         window.isRestorable = false
         window.styleMask = .borderless
-        window.backgroundColor = NSColor.clear
-        window.isOpaque = false
+        //window.backgroundColor = NSColor.clear
+        //window.isOpaque = false
         window.hasShadow = false
         window.ignoresMouseEvents = true
         window.level = .floating
         window.setFrame(window.screen!.visibleFrame, display: true)
+    }
+    
+    private func moveWindowToCursorScreen() {
+        for screen in NSScreen.screens {
+            if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
+                guard let window else { return }
+                if window.screen != screen { // Window not on correct screen yet?
+                    // Move window to screen
+                    window.setFrame(screen.visibleFrame, display: false)
+                }
+                break
+            }
+        }
     }
 
 }
