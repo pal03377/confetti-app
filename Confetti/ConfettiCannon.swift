@@ -45,7 +45,7 @@ class ConfettiCannon: NSView {
             // Acceleration in opposite x direction of direction for drag effect
             cell.xAcceleration = 0.3 * emissionVelocity * CGFloat(cos(direction.direction.radians + .pi / 2)) // Angles are shifted 90° vs. the needed cos for the acceleration x direction
             // Gravity effect
-            cell.yAcceleration = -emissionVelocity
+            cell.yAcceleration = -2000 // Ensure min gravity to not look weird
             cell.spin = 0
             cell.spinRange = 10
             cell.scale = 0.5
