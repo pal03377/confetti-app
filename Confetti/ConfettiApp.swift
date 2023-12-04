@@ -35,6 +35,7 @@ struct ConfettiApp: App {
                 if appState.mouseConfettiCannonEnabled {
                     // Register mouse move event for mouse confetti cannon
                     NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
+                        if !appState.mouseConfettiCannonEnabled { return nil } // Remove mouse event listener
                         DispatchQueue.main.async {
                             moveWindowToCursorScreen()
                             for screen in NSScreen.screens {
