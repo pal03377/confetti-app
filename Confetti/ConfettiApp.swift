@@ -80,10 +80,8 @@ struct ConfettiApp: App {
         for screen in NSScreen.screens {
             if NSMouseInRect(NSEvent.mouseLocation, screen.frame, false) {
                 guard let window else { return }
-                if window.screen != screen { // Window not on correct screen yet?
-                    // Move window to screen
-                    window.setFrame(screen.visibleFrame, display: false)
-                }
+                // Move window to screen
+                window.setFrame(screen.visibleFrame, display: false)
                 break
             }
         }
