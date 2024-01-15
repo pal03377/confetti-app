@@ -99,13 +99,13 @@ final class AppState: ObservableObject {
     @Published var mouseConfettiCannonEnabled = false
     
     init() {
-        KeyboardShortcuts.onKeyUp(for: .showConfetti) { [self] in
+        KeyboardShortcuts.onKeyDown(for: .showConfetti) { [self] in
             self.confettiRunning = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.confettiRunning = false
-            }
         }
-        KeyboardShortcuts.onKeyUp(for: .toggleMouseConfettiCannonEnabled) {
+        KeyboardShortcuts.onKeyUp(for: .showConfetti) { [self] in
+            self.confettiRunning = false
+        }
+        KeyboardShortcuts.onKeyDown(for: .toggleMouseConfettiCannonEnabled) {
             self.mouseConfettiCannonEnabled.toggle()
         }
     }

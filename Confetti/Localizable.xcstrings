@@ -68,6 +68,9 @@
         }
       }
     },
+    "toggle" : {
+
+    },
     "Toggle mouse confetti:" : {
       "extractionState" : "stale",
       "localizations" : {
