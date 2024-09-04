@@ -12,8 +12,8 @@ import LaunchAtLogin
 struct SettingsScreen: View {
     var body: some View {
         Form {
-            KeyboardShortcuts.Recorder("Show Confetti:", name: .showConfetti)
-            KeyboardShortcuts.Recorder("Toggle mouse confetti:", name: .toggleMouseConfettiCannonEnabled)
+            KeyboardShortcuts.Recorder(String(localized: "Show Confetti:"), name: .showConfetti)
+            KeyboardShortcuts.Recorder(String(localized: "Toggle mouse confetti:"), name: .toggleMouseConfettiCannonEnabled)
             LaunchAtLogin.Toggle()
         }
         .frame(minWidth: 400)

@@ -49,7 +49,7 @@ struct MouseConfettiCannon: View {
             if passedTimeSeconds < 0.05 { return }
             let distance = sqrt(pow(mouseLocation.x - oldMouseLocation.x, 2) + pow(mouseLocation.y - oldMouseLocation.y, 2))
             let velocity = distance / passedTimeSeconds
-            let angle = Angle.radians(atan2(0 - (mouseLocation.y - oldMouseLocation.y), mouseLocation.x - oldMouseLocation.x) + .pi / 2) // We reverted the y axis in ConfettiApp.swift => need to revert again for angles; angles are 90° rotated against each other
+            let angle = Angle.radians(atan2(0 - (mouseLocation.y - oldMouseLocation.y), mouseLocation.x - oldMouseLocation.x) + Double.pi / 2) // We reverted the y axis in ConfettiApp.swift => need to revert again for angles; angles are 90° rotated against each other
             let cannonConfig = ConfettiCannonConfig(
                 id: UUID(),
                 position: mouseLocation,

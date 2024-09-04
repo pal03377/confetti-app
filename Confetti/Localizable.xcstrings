@@ -46,7 +46,6 @@
       }
     },
     "Show Confetti:" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -69,14 +68,32 @@
       }
     },
     "toggle" : {
-
-    },
-    "Toggle mouse confetti:" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
+            "value" : "Umschalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "toggle"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "basculer"
+          }
+        }
+      }
+    },
+    "Toggle mouse confetti:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Maus-Konfetti umschalten:"
           }
         },
@@ -88,7 +105,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Activer/désactiver les confettis de la souris:"
           }
         }

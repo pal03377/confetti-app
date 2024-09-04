@@ -72,7 +72,9 @@ struct ConfettiApp: App {
         window.isOpaque = false
         window.hasShadow = false
         window.ignoresMouseEvents = true
-        window.level = .floating
+        window.level = .screenSaver
+        window.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle] // No interaction with window cycling
+        window.isMovableByWindowBackground = false
         window.setFrame(window.screen!.visibleFrame, display: true)
     }
     
