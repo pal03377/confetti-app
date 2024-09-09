@@ -13,7 +13,14 @@ struct ConfettiAppMenu: View {
     }
 
     var body: some View {
-        SettingsLink()
+        if #available(macOS 14, *) {
+            SettingsLink()
+        } else {
+            // Backwards-compatible settings button
+            Button("Settings") {
+                NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+            }
+        }
         Button(action: quitApp, label: { Text(String(localized: "Quit")) })
     }
 }

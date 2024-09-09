@@ -43,7 +43,7 @@ struct MouseConfettiCannon: View {
                     .position(mouseLocation)
             }
         }
-        .onChange(of: mouseLocation) { // Cannot use params because function is throttled
+        .onChange(of: mouseLocation) { _ in // Cannot use params because function is throttled
             // Throttle function to avoid problems with high event resolution
             let passedTimeSeconds = CGFloat(Date().timeIntervalSince(lastMouseUpdateTime))
             if passedTimeSeconds < 0.05 { return }

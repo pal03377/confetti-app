@@ -27,13 +27,13 @@
 
 /* Begin PBXFileReference section */
 		DA368D2A2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiCannonSceneKit.swift; sourceTree = "<group>"; };
+		DA4521502C8E74DE002F05FA /* Confetti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Confetti.entitlements; sourceTree = "<group>"; };
 		DA4E7ACF2B1D185100E934EC /* ConfettiAppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiAppMenu.swift; sourceTree = "<group>"; };
 		DA670A032B1A44BA00D19DC3 /* Confetti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Confetti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA670A062B1A44BA00D19DC3 /* ConfettiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiApp.swift; sourceTree = "<group>"; };
 		DA670A082B1A44BA00D19DC3 /* SideConfettiCannons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideConfettiCannons.swift; sourceTree = "<group>"; };
 		DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA670A0D2B1A44BC00D19DC3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		DA670A0F2B1A44BC00D19DC3 /* Confetti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Confetti.entitlements; sourceTree = "<group>"; };
 		DA670A1C2B1A567900D19DC3 /* ConfettiCannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiCannon.swift; sourceTree = "<group>"; };
 		DA670A262B1A646500D19DC3 /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
 		DA670A282B1A64B000D19DC3 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
@@ -76,6 +76,7 @@
 		DA670A052B1A44BA00D19DC3 /* Confetti */ = {
 			isa = PBXGroup;
 			children = (
+				DA4521502C8E74DE002F05FA /* Confetti.entitlements */,
 				DA670A062B1A44BA00D19DC3 /* ConfettiApp.swift */,
 				DA4E7ACF2B1D185100E934EC /* ConfettiAppMenu.swift */,
 				DAE522122B1D698500F4DDF0 /* Localizable.xcstrings */,
@@ -87,7 +88,6 @@
 				DA368D2A2B1AD87000A3B3A1 /* ConfettiCannonSceneKit.swift */,
 				DA69DE5D2B1ADC0D00978D62 /* Confetti.scn */,
 				DA670A0A2B1A44BC00D19DC3 /* Assets.xcassets */,
-				DA670A0F2B1A44BC00D19DC3 /* Confetti.entitlements */,
 				DA670A0C2B1A44BC00D19DC3 /* Preview Content */,
 			);
 			path = Confetti;
@@ -329,9 +329,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Confetti/Confetti.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Confetti/Preview Content\"";
 				DEVELOPMENT_TEAM = 5D4FR5T9QN;
@@ -341,14 +342,16 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Confetti Magic";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = NO;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Paul Schwind";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pschwind.Confetti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -360,9 +363,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Confetti/Confetti.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Confetti/Preview Content\"";
 				DEVELOPMENT_TEAM = 5D4FR5T9QN;
@@ -372,14 +376,16 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Confetti Magic";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = NO;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Paul Schwind";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pschwind.Confetti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};

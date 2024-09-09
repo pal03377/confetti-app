@@ -45,6 +45,9 @@
         }
       }
     },
+    "Settings" : {
+
+    },
     "Show Confetti:" : {
       "localizations" : {
         "de" : {
