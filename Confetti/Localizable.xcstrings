@@ -71,6 +71,7 @@
       }
     },
     "toggle" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
