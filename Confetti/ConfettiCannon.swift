@@ -1,10 +1,3 @@
-//
-//  ConfettiCannon.swift
-//  Confetti
-//
-//  Created by Paul Schwind on 01.12.23.
-//
-
 import SwiftUI
 
 struct ConfettiDirection: Equatable {

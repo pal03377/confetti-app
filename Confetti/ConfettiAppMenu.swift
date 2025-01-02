@@ -1,10 +1,3 @@
-//
-//  ConfettiAppMenu.swift
-//  Confetti
-//
-//  Created by Paul Schwind on 03.12.23.
-//
-
 import SwiftUI
 
 struct ConfettiAppMenu: View {

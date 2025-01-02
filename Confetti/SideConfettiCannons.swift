@@ -1,10 +1,3 @@
-//
-//  SideConfettiCannons.swift
-//  Confetti
-//
-//  Created by Paul Schwind on 01.12.23.
-//
-
 import SwiftUI
 
 

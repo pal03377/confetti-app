@@ -1,10 +1,3 @@
-//
-//  MouseConfettiCannon.swift
-//  Confetti
-//
-//  Created by Paul Schwind on 03.12.23.
-//
-
 import SwiftUI
 
 let MOUSE_CONFETTI_CANNON_DEBUGGING = false

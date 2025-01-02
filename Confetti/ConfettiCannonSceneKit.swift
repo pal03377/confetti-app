@@ -1,10 +1,3 @@
-//
-//  ConfettiCannonSceneKit.swift
-//  Confetti
-//
-//  Created by Paul Schwind on 02.12.23.
-//
-
 import SwiftUI
 import SceneKit
 
