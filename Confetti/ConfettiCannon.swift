@@ -157,6 +157,7 @@ class ConfettiCannon: NSView {
     private var birthRate: Float = 50
     private var kind: ConfettiKind = .default
     private var style: ConfettiStyle = .style(for: .default)
+    private var configuredCellBirthRates: [String: Float] = [:]
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -171,8 +172,9 @@ class ConfettiCannon: NSView {
     private func updateCellProperties() {
         for cell in emitter.emitterCells ?? [] {
             let velocity = emissionVelocity * style.velocityMultiplier
+            let configuredBirthRate = birthRate * style.birthRateMultiplier
 
-            cell.birthRate = birthRate * style.birthRateMultiplier
+            cell.birthRate = configuredBirthRate
             cell.lifetime = style.lifetime
             cell.velocity = velocity
             cell.velocityRange = velocity / 2
@@ -187,6 +189,11 @@ class ConfettiCannon: NSView {
             cell.alphaSpeed = 0 - 1 / cell.lifetime // Ensure invisibility after lifetime
             cell.emissionLongitude = direction.direction.radians
             cell.emissionRange = direction.spread.radians * style.spreadMultiplier
+
+            if let cellName = cell.name, configuredCellBirthRates[cellName] != configuredBirthRate {
+                emitter.setValue(configuredBirthRate, forKeyPath: "emitterCells.\(cellName).birthRate")
+                configuredCellBirthRates[cellName] = configuredBirthRate
+            }
         }
     }
 
@@ -240,15 +247,18 @@ class ConfettiCannon: NSView {
 
     private func rebuildEmitterCells() {
         var cells: [CAEmitterCell] = []
+        configuredCellBirthRates.removeAll()
 
         for assetName in style.assetNames {
             let cell = CAEmitterCell()
+            cell.name = "asset_\(assetName)"
             cell.contents = NSImage(named: NSImage.Name(assetName))?.cgImage(forProposedRect: nil, context: nil, hints: nil)
             cells.append(cell)
         }
 
-        for emoji in style.emojis {
+        for (emojiIndex, emoji) in style.emojis.enumerated() {
             let cell = CAEmitterCell()
+            cell.name = "emoji_\(emojiIndex)"
             cell.contents = Self.emojiImage(for: emoji)
             cells.append(cell)
         }

@@ -22,7 +22,11 @@ struct ConfettiApp: App {
     var body: some Scene {
         Window("Confetti", id: "confetti") {
             ZStack {
-                SideConfettiCannons(confettiRunning: appState.confettiRunning, confettiKind: appState.confettiKind)
+                SideConfettiCannons(
+                    confettiRunning: appState.confettiRunning,
+                    confettiKind: appState.confettiKind,
+                    intensityMultiplier: appState.confettiIntensityMultiplier
+                )
                 MouseConfettiCannon(mouseLocation: appState.mouseLocation)
             }
             .onAppear {
@@ -106,12 +110,23 @@ struct ConfettiApp: App {
 @MainActor
 final class AppState: ObservableObject {
     static let shared = AppState()
+    private static let holdRampStartSeconds: TimeInterval = 5
+    private static let holdRampEndSeconds: TimeInterval = 10
+    private static let maximumHoldIntensityMultiplier: Float = 4
+
     @Published var confettiRunning = false // For triggering a confetti animation
     @Published var confettiKind: ConfettiKind = .default
+    @Published var confettiIntensityMultiplier: Float = 1
     @Published var mouseLocation = NSPoint()
     @Published var mouseConfettiCannonEnabled = false
-    private var pressedConfettiKinds: [ConfettiKind] = []
+    private var pressedConfettiKinds: [PressedConfettiKind] = []
     private var confettiTurnOffTask: Task<Void, Never>?
+    private var confettiIntensityRampTask: Task<Void, Never>?
+
+    private struct PressedConfettiKind {
+        let kind: ConfettiKind
+        let startDate: Date
+    }
     
     init() {
         // Register keyboard shortcuts
@@ -149,33 +164,68 @@ final class AppState: ObservableObject {
     private func startHoldingConfetti(_ confettiKind: ConfettiKind) {
         confettiTurnOffTask?.cancel()
         confettiTurnOffTask = nil
-        pressedConfettiKinds.removeAll { $0 == confettiKind }
-        pressedConfettiKinds.append(confettiKind)
-        self.confettiKind = confettiKind
-        self.confettiRunning = true
+        pressedConfettiKinds.removeAll { $0.kind == confettiKind }
+        pressedConfettiKinds.append(PressedConfettiKind(kind: confettiKind, startDate: Date()))
+        updateActiveHeldConfetti()
+        startConfettiIntensityRamp()
     }
 
     private func stopHoldingConfetti(_ confettiKind: ConfettiKind) {
-        pressedConfettiKinds.removeAll { $0 == confettiKind }
+        pressedConfettiKinds.removeAll { $0.kind == confettiKind }
 
-        if let lastPressedConfettiKind = pressedConfettiKinds.last {
-            self.confettiKind = lastPressedConfettiKind
-            self.confettiRunning = true
+        if pressedConfettiKinds.last != nil {
+            updateActiveHeldConfetti()
         } else {
+            confettiIntensityRampTask?.cancel()
+            confettiIntensityRampTask = nil
+            self.confettiIntensityMultiplier = 1
             self.confettiRunning = false
         }
     }
 
     private func fireTransientConfetti(_ confettiKind: ConfettiKind) {
+        confettiIntensityRampTask?.cancel()
+        confettiIntensityRampTask = nil
+        pressedConfettiKinds.removeAll()
         self.confettiKind = confettiKind
+        self.confettiIntensityMultiplier = 1
         self.confettiRunning = true // Start confetti
         confettiTurnOffTask?.cancel() // Cancel last planned confetti stop
         confettiTurnOffTask = Task { // Schedule confetti stop after Xms
             try? await Task.sleep(for: .milliseconds(200)) // Wait Xms
             if Task.isCancelled { return } // Stop if task was cancelled because of another confetti event
-            DispatchQueue.main.async { self.confettiRunning = false } // Stop confetti
+            DispatchQueue.main.async {
+                self.confettiIntensityMultiplier = 1
+                self.confettiRunning = false
+            } // Stop confetti
             self.confettiTurnOffTask = nil // Reset confetti turnoff task to allow sending the confetti throwing event again
         }
+    }
+
+    private func updateActiveHeldConfetti() {
+        guard let pressedConfettiKind = pressedConfettiKinds.last else { return }
+
+        self.confettiKind = pressedConfettiKind.kind
+        updateConfettiIntensity(for: pressedConfettiKind)
+        self.confettiRunning = true
+    }
+
+    private func startConfettiIntensityRamp() {
+        confettiIntensityRampTask?.cancel()
+        confettiIntensityRampTask = Task { @MainActor [weak self] in
+            while !Task.isCancelled {
+                guard let self = self, let pressedConfettiKind = self.pressedConfettiKinds.last else { return }
+                self.updateConfettiIntensity(for: pressedConfettiKind)
+                try? await Task.sleep(for: .milliseconds(100))
+            }
+        }
+    }
+
+    private func updateConfettiIntensity(for pressedConfettiKind: PressedConfettiKind) {
+        let holdDuration = Date().timeIntervalSince(pressedConfettiKind.startDate)
+        let rampDuration = Self.holdRampEndSeconds - Self.holdRampStartSeconds
+        let rampProgress = min(max((holdDuration - Self.holdRampStartSeconds) / rampDuration, 0), 1)
+        self.confettiIntensityMultiplier = 1 + Float(rampProgress) * (Self.maximumHoldIntensityMultiplier - 1)
     }
 }
 
